@@ -1,0 +1,129 @@
+{
+  "app_name": "FarmiQ",
+  "tagline": "Smart Farming Assistant",
+  "signin": {
+    "title": "Sign in",
+    "phone": "Phone number",
+    "phone_placeholder": "98765 43210",
+    "password": "Password",
+    "btn_signin": "Sign in",
+    "btn_create": "Create new account",
+    "stay_signed_in": "You stay signed in on this phone.",
+    "forgot_password": "Forgot password? Ask the app admin."
+  },
+  "create_account": {
+    "title": "Create account",
+    "name": "What should we call you?",
+    "name_placeholder": "Murugan",
+    "phone": "Phone number",
+    "phone_placeholder": "98765 43210",
+    "password": "Create a password",
+    "district": "District (optional)",
+    "district_placeholder": "e.g. Madurai",
+    "btn_create": "Create account"
+  },
+  "home": {
+    "greeting": "Hello, {{name}}",
+    "weather_alert_title": "Rain expected tomorrow",
+    "weather_alert_sub": "Delay spraying. See the 5-day forecast.",
+    "tile_crops": "My crops",
+    "tile_tasks": "Today's tasks",
+    "tile_scan": "Scan crop",
+    "tile_weather": "Weather",
+    "tile_prices": "Market prices",
+    "tile_inventory": "Inventory",
+    "tile_marketplace": "Marketplace",
+    "tile_log": "Daily log"
+  },
+  "nav": {
+    "home": "Home",
+    "crops": "Crops",
+    "ask": "Ask",
+    "tasks": "Tasks"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Missed while you were away",
+    "mark_all_read": "Mark all as read"
+  },
+  "crops": {
+    "title": "My crops",
+    "add_crop": "+ Add crop",
+    "harvest_in": "Harvest in about {{days}} days ({{date}})",
+    "next_task": "Next: {{task}}"
+  },
+  "crop_detail": {
+    "stage": "Stage: {{stage}}",
+    "predicted_harvest": "Predicted harvest: {{date}}",
+    "days_left": "About {{days}} days left",
+    "upcoming_tasks": "Upcoming tasks",
+    "confirm_title": "Mark \"{{task}}\" as done?",
+    "confirm_sub": "Only confirm if the work is finished.",
+    "yes_completed": "Yes, completed",
+    "not_yet": "Not yet"
+  },
+  "scan": {
+    "title": "Crop check",
+    "photo_placeholder": "Your crop photo",
+    "possible_issue": "Possible issue: {{issue}}",
+    "confidence": "Confidence: {{level}}",
+    "treatment_title": "Treatment options",
+    "treatment_natural": "Natural: {{text}}",
+    "treatment_chemical": "Chemical: {{text}}",
+    "stay_safe": "Stay safe",
+    "stay_safe_note": "Wear gloves and a mask. Check the waiting days before harvest. If unsure, call your agriculture officer.",
+    "btn_add_task": "Add treatment as task",
+    "btn_scan_another": "Scan another photo"
+  },
+  "chat": {
+    "title": "Ask FarmiQ",
+    "initial_message": "Hi! Ask a farming question, or tell me what to schedule.",
+    "proposed_task_header": "I can add this task:",
+    "btn_add_task": "Add task",
+    "btn_change": "Change",
+    "chip_pest": "Pest help",
+    "chip_weather": "Weather",
+    "chip_task": "Add a task",
+    "input_placeholder": "Type your question",
+    "btn_send": "Send"
+  },
+  "weather": {
+    "title": "Weather",
+    "today_farm": "Today, your farm",
+    "rain_chance": "Rain chance {{percent}}%",
+    "next_5_days": "Next 5 days"
+  },
+  "market_prices": {
+    "title": "Market prices",
+    "updated_hint": "Updated today, 6:00 am. Price per quintal.",
+    "my_crops": "My crops",
+    "all_crops": "All crops",
+    "btn_sell": "Sell my produce"
+  },
+  "inventory": {
+    "title": "Inventory",
+    "low_alert": "{{count}} items are running low",
+    "btn_use": "Use",
+    "btn_add": "Add",
+    "btn_add_item": "+ Add item"
+  },
+  "marketplace": {
+    "title": "Marketplace",
+    "tab_buy": "Buy",
+    "tab_my_listings": "My listings",
+    "btn_call": "Call",
+    "btn_whatsapp": "WhatsApp",
+    "btn_sell": "+ Sell your product"
+  },
+  "sell": {
+    "title": "Sell your product",
+    "product": "Product",
+    "quantity": "Quantity",
+    "unit": "Unit",
+    "price_per_kg": "Your price per kg (₹)",
+    "market_price_hint": "Today's market price: about ₹{{price}} per kg",
+    "btn_add_photo": "Add photo",
+    "show_phone": "Show my phone number to buyers",
+    "btn_post": "Post listing"
+  }
+}

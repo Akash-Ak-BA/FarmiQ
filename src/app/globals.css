@@ -16,7 +16,7 @@
   --sh: 0 1px 3px rgba(0, 0, 0, 0.14);
 }
 
-.dark {
+html.dark, :root.dark {
   --g: #1B5E20;
   --bg: #121412;
   --c: #1E211E;
@@ -51,31 +51,31 @@
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--t);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
   padding: 0;
+  background: #0d0f0d;
+  color: var(--t);
+  font: 16px/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Screen container for mobile view */
-.farmiq-screen {
+/* Phone screen container */
+.s {
   position: relative;
   width: 100%;
-  max-width: 420px;
+  max-width: 390px;
   min-height: 100dvh;
-  margin: 0 auto;
   background: var(--bg);
   color: var(--t);
+  font: 16px/1.4 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Header style matching farmiq_styles.css */
-.farmiq-header {
+/* Header matching .hd and .hd.big */
+.hd {
   height: 56px;
   flex: none;
   background: var(--g);
@@ -91,7 +91,7 @@ body {
   z-index: 10;
 }
 
-.farmiq-header-big {
+.hd.big {
   height: 160px;
   display: flex;
   flex-direction: column;
@@ -102,8 +102,57 @@ body {
   font-weight: 700;
 }
 
+.ib {
+  width: 52px;
+  height: 52px;
+  background: none;
+  border: 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.dot {
+  position: absolute;
+  top: 8px;
+  right: 6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #D32F2F;
+  color: #fff;
+  font: 700 11px/18px system-ui;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bd {
+  flex: 1;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
 /* Card */
-.farmiq-card {
+.c {
   background: var(--c);
   border: 1px solid var(--l);
   border-radius: 10px;
@@ -114,8 +163,28 @@ body {
   box-shadow: var(--sh);
 }
 
+.r {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sb {
+  justify-content: space-between;
+}
+
+.m {
+  color: var(--m);
+  font-size: 14px;
+}
+
+.w {
+  background: var(--w);
+  border-color: var(--wl);
+}
+
 /* Buttons */
-.farmiq-btn {
+.b {
   min-height: 50px;
   border: 0;
   border-radius: 8px;
@@ -124,28 +193,25 @@ body {
   font: 600 16px system-ui;
   padding: 0 16px;
   box-shadow: var(--sh);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   touch-action: manipulation;
 }
 
-.farmiq-btn-outline {
+.b.o {
   background: var(--c);
   color: var(--gt);
   border: 1.5px solid var(--g);
   box-shadow: none;
 }
 
-.farmiq-btn-sm {
+.b.sm {
   min-height: 44px;
   padding: 0 14px;
   font-size: 15px;
 }
 
 /* Inputs */
-.farmiq-input {
+.i {
   min-height: 50px;
   width: 100%;
   border: 1px solid #9AA09A;
@@ -157,13 +223,24 @@ body {
   outline: none;
 }
 
-.farmiq-input:focus {
-  border-color: var(--g);
-  ring: 2px var(--g);
+.lb {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--m);
+  margin-bottom: -6px;
 }
 
-/* Bottom Nav */
-.farmiq-nav {
+.p {
+  align-self: flex-start;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--pl);
+  color: var(--gt);
+  font: 600 13px system-ui;
+}
+
+/* Navigation bar */
+.nv {
   height: 64px;
   flex: none;
   background: var(--g);
@@ -174,7 +251,8 @@ body {
   z-index: 20;
 }
 
-.farmiq-nav button, .farmiq-nav a {
+.nv button,
+.nv a {
   flex: 1;
   border: 0;
   border-radius: 8px;
@@ -190,8 +268,160 @@ body {
   text-decoration: none;
 }
 
-.farmiq-nav .active {
+.nv .on {
   background: rgba(255, 255, 255, 0.18);
   color: #fff;
   font-weight: 700;
+}
+
+/* Footer language bar */
+.ft {
+  height: 60px;
+  flex: none;
+  background: var(--g);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.lg {
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  color: #DCEBDD;
+  font: 500 15px system-ui;
+  min-height: 44px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.lg.on {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Grid & Tiles */
+.gr {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.t {
+  min-height: 90px;
+  border-radius: 10px;
+  border: 1px solid var(--l);
+  background: var(--c);
+  color: var(--t);
+  font: 500 15px system-ui;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: var(--sh);
+}
+
+.t svg {
+  color: var(--g);
+}
+
+/* Progress bar */
+.bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--l);
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--g);
+}
+
+/* Chat bubble */
+.bb {
+  max-width: 84%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--l);
+  background: var(--c);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--sh);
+}
+
+.bb.me {
+  align-self: flex-end;
+  background: var(--g);
+  color: #fff;
+  border-color: var(--g);
+}
+
+/* Chips */
+.ch {
+  min-height: 40px;
+  border-radius: 20px;
+  border: 1px solid #9AA09A;
+  background: var(--c);
+  color: var(--t);
+  padding: 0 14px;
+  font: 500 14px system-ui;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ch.on {
+  background: var(--g);
+  border-color: var(--g);
+  color: #fff;
+}
+
+/* Photo box */
+.ph {
+  height: 110px;
+  border-radius: 10px;
+  background: var(--pl);
+  color: var(--m);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+/* Unread dot */
+.un {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--g);
+  flex: none;
+}
+
+/* Bottom sheet & modal */
+.sc {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.sh {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--c);
+  border-radius: 16px 16px 0 0;
+  padding: 20px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
 }

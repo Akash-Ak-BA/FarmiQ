@@ -1,0 +1,129 @@
+{
+  "app_name": "ఫార్మ్‌ఐక్యూ",
+  "tagline": "స్మార్ట్ వ్యవసాయ సహాయకుడు",
+  "signin": {
+    "title": "సైన్ ఇన్",
+    "phone": "ఫోన్ నంబర్",
+    "phone_placeholder": "98765 43210",
+    "password": "పాస్‌వర్డ్",
+    "btn_signin": "సైన్ ఇన్ చేయండి",
+    "btn_create": "కొత్త ఖాతా సృష్టించండి",
+    "stay_signed_in": "మీరు ఈ ఫోన్‌లో లాగిన్ అయి ఉంటారు.",
+    "forgot_password": "పాస్‌వర్డ్ మర్చిపోయారా? అడ్మిన్‌ను సంప్రదించండి."
+  },
+  "create_account": {
+    "title": "ఖాతా సృష్టించండి",
+    "name": "మిమ్మల్ని ఏమని పిలవాలి?",
+    "name_placeholder": "మురుగన్",
+    "phone": "ఫోన్ నంబర్",
+    "phone_placeholder": "98765 43210",
+    "password": "పాస్‌వర్డ్ సృష్టించండి",
+    "district": "జిల్లా (ఐచ్ఛికం)",
+    "district_placeholder": "ఉదా. గుంటూరు",
+    "btn_create": "ఖాతా సృష్టించండి"
+  },
+  "home": {
+    "greeting": "నమస్కారం, {{name}}",
+    "weather_alert_title": "రేపు వర్షం పడే అవకాశం ఉంది",
+    "weather_alert_sub": "మందుల పిచికారీని వాయిదా వేయండి. 5 రోజుల వాతావరణం చూడండి.",
+    "tile_crops": "నా పంటలు",
+    "tile_tasks": "నేటి పనులు",
+    "tile_scan": "పంట స్కాన్",
+    "tile_weather": "వాతావరణం",
+    "tile_prices": "మార్కెట్ ధరలు",
+    "tile_inventory": "సరుకుల నిల్వ",
+    "tile_marketplace": "మార్కెట్‌ప్లేస్",
+    "tile_log": "రోజువారీ లాగ్"
+  },
+  "nav": {
+    "home": "హోమ్",
+    "crops": "పంటలు",
+    "ask": "అడగండి",
+    "tasks": "పనులు"
+  },
+  "notifications": {
+    "title": "నోటిఫికేషన్‌లు",
+    "subtitle": "మీరు చూడనివి",
+    "mark_all_read": "అన్నీ చదివినట్లు గుర్తించు"
+  },
+  "crops": {
+    "title": "నా పంటలు",
+    "add_crop": "+ పంటను జోడించు",
+    "harvest_in": "సుమారు {{days}} రోజుల్లో కోత ({{date}})",
+    "next_task": "తదుపరి: {{task}}"
+  },
+  "crop_detail": {
+    "stage": "దశ: {{stage}}",
+    "predicted_harvest": "అంచనా కోత తేదీ: {{date}}",
+    "days_left": "ఇంకా {{days}} రోజులు మిగిలి ఉన్నాయి",
+    "upcoming_tasks": "రాబోయే పనులు",
+    "confirm_title": "\"{{task}}\" పూర్తయిందా?",
+    "confirm_sub": "పని పూర్తయితేనే నిర్ధారించండి.",
+    "yes_completed": "అవును, పూర్తయింది",
+    "not_yet": "ఇంకా లేదు"
+  },
+  "scan": {
+    "title": "పంట తనిఖీ",
+    "photo_placeholder": "మీ పంట ఫోటో",
+    "possible_issue": "సంభావ్య సమస్య: {{issue}}",
+    "confidence": "ఖచ్చితత్వం: {{level}}",
+    "treatment_title": "చికిత్స మార్గాలు",
+    "treatment_natural": "సహజ పద్ధతి: {{text}}",
+    "treatment_chemical": "రసాయన పద్ధతి: {{text}}",
+    "stay_safe": "జాగ్రత్తలు",
+    "stay_safe_note": "చేతి తొడుగులు మరియు మాస్క్ ధరించండి. కోతకు ముందు వేచి ఉండే సమయాన్ని గమనించండి.",
+    "btn_add_task": "చికిత్సను పనిగా జోడించు",
+    "btn_scan_another": "మరో ఫోటో స్కాన్ చేయండి"
+  },
+  "chat": {
+    "title": "ఫార్మ్‌ఐక్యూని అడగండి",
+    "initial_message": "నమస్కారం! వ్యవసాయ ప్రశ్నలు అడగండి లేదా పనులను షెడ్యూల్ చేయండి.",
+    "proposed_task_header": "నేను ఈ పనిని జోడించగలను:",
+    "btn_add_task": "పనిని జోడించు",
+    "btn_change": "మార్చు",
+    "chip_pest": "తెగుళ్ళ నివారణ",
+    "chip_weather": "వాతావరణం",
+    "chip_task": "పనిని చేర్చు",
+    "input_placeholder": "మీ ప్రశ్నను టైప్ చేయండి",
+    "btn_send": "పంపు"
+  },
+  "weather": {
+    "title": "వాతావరణం",
+    "today_farm": "ఈ రోజు, మీ పొలం",
+    "rain_chance": "వర్షం పడే అవకాశం {{percent}}%",
+    "next_5_days": "తదుపరి 5 రోజులు"
+  },
+  "market_prices": {
+    "title": "మార్కెట్ ధరలు",
+    "updated_hint": "నేడు ఉదయం 6:00 సమయానికి. క్వింటాలుకు ధర.",
+    "my_crops": "నా పంటలు",
+    "all_crops": "అన్ని పంటలు",
+    "btn_sell": "పంట ఉత్పత్తులను అమ్మండి"
+  },
+  "inventory": {
+    "title": "సరుకుల నిల్వ",
+    "low_alert": "{{count}} వస్తువులు తక్కువగా ఉన్నాయి",
+    "btn_use": "వాడు",
+    "btn_add": "చేర్చు",
+    "btn_add_item": "+ వస్తువును చేర్చు"
+  },
+  "marketplace": {
+    "title": "మార్కెట్‌ప్లేస్",
+    "tab_buy": "కొనుగోలు",
+    "tab_my_listings": "నా అమ్మకాలు",
+    "btn_call": "కాల్ చేయండి",
+    "btn_whatsapp": "వాట్సాప్",
+    "btn_sell": "+ మీ ఉత్పత్తులను అమ్మండి"
+  },
+  "sell": {
+    "title": "మీ ఉత్పత్తులను అమ్మండి",
+    "product": "ఉత్పత్తి",
+    "quantity": "పరిమాణం",
+    "unit": "కొలత",
+    "price_per_kg": "కిలో ధర (₹)",
+    "market_price_hint": "నేటి మార్కెట్ ధర: సుమారు ₹{{price}} / కిలో",
+    "btn_add_photo": "ఫోటో జోడించండి",
+    "show_phone": "కొనుగోలుదారులకు నా ఫోన్ నంబర్ చూపించు",
+    "btn_post": "లిస్టింగ్ పోస్ట్ చేయండి"
+  }
+}

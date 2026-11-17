@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { ScreenNavigator } from "@/components/common/ScreenNavigator";
 
 export const metadata: Metadata = {
   title: "FarmiQ - Smart Farming Assistant",
@@ -30,12 +33,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <link rel="icon" href="/farmiq_plant_green.svg" type="image/svg+xml" />
       </head>
-      <body className="antialiased min-h-screen flex justify-center bg-gray-100 dark:bg-black">
-        {children}
+      <body className="antialiased min-h-screen flex justify-center bg-[#0d0f0d] text-[#E8EAE8]">
+        <ThemeProvider>
+          <LanguageProvider>
+            <div className="w-full flex justify-center min-h-screen">
+              {children}
+            </div>
+            <ScreenNavigator />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
