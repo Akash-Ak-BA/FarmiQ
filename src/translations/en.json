@@ -115,6 +115,17 @@
     "btn_whatsapp": "WhatsApp",
     "btn_sell": "+ Sell your product"
   },
+  "daily_log": {
+    "title": "Daily log",
+    "today": "Today's activities",
+    "btn_log_work": "+ Log today's work",
+    "modal_title": "Log activity",
+    "crop_label": "Crop / Plot",
+    "type_label": "Activity type",
+    "cost_label": "Cost incurred (₹)",
+    "notes_label": "Notes / Details",
+    "btn_save": "Save to daily log"
+  },
   "sell": {
     "title": "Sell your product",
     "product": "Product",

@@ -26,6 +26,7 @@ export function ScreenNavigator() {
     { num: 11, name: "Inventory", path: "/inventory" },
     { num: 12, name: "Marketplace", path: "/marketplace" },
     { num: 13, name: "Sell your product", path: "/marketplace/sell" },
+    { num: 14, name: "Daily log", path: "/daily-log" },
   ];
 
   const currentScreen = screens.find((s) => s.path === pathname) || {

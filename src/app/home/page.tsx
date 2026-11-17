@@ -14,11 +14,12 @@ import {
   StoreIcon,
   ClipboardIcon,
 } from "@/components/common/Icons";
-import { currentUser } from "@/data/mockData";
 import { useTranslation } from "@/context/LanguageContext";
+import { useUser } from "@/context/UserContext";
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const { user } = useUser();
 
   const tiles = [
     { label: t("home.tile_crops"), href: "/crops", icon: PlantIcon },
@@ -28,7 +29,7 @@ export default function HomePage() {
     { label: t("home.tile_prices"), href: "/market-prices", icon: RupeeIcon },
     { label: t("home.tile_inventory"), href: "/inventory", icon: BoxIcon },
     { label: t("home.tile_marketplace"), href: "/marketplace", icon: StoreIcon },
-    { label: t("home.tile_log"), href: "/home", icon: ClipboardIcon },
+    { label: t("home.tile_log"), href: "/daily-log", icon: ClipboardIcon },
   ];
 
   return (
@@ -41,7 +42,7 @@ export default function HomePage() {
         <div className="flex flex-col gap-0.5 pt-1">
           <p className="m text-[14px]">Tuesday, 17 Nov</p>
           <h2 className="text-[24px] font-bold tracking-tight">
-            {t("home.greeting", { name: currentUser.name })}
+            {t("home.greeting", { name: user.name || "Murugan" })}
           </h2>
         </div>
 

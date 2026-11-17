@@ -6,15 +6,18 @@ import { useRouter } from "next/navigation";
 import { Header } from "@/components/common/Header";
 import { LanguageBar } from "@/components/common/LanguageBar";
 import { useTranslation } from "@/context/LanguageContext";
+import { useUser } from "@/context/UserContext";
 
 export default function SignInPage() {
   const { t } = useTranslation();
+  const { user, setUserProfile } = useUser();
   const router = useRouter();
-  const [phone, setPhone] = useState("98765 43210");
+  const [phone, setPhone] = useState(user.phone || "98765 43210");
   const [password, setPassword] = useState("••••••••");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setUserProfile({ phone });
     router.push("/home");
   };
 

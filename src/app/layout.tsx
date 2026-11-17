@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { UserProvider } from "@/context/UserContext";
 import { ScreenNavigator } from "@/components/common/ScreenNavigator";
 
 export const metadata: Metadata = {
@@ -40,10 +41,12 @@ export default function RootLayout({
       <body className="antialiased min-h-screen flex justify-center bg-[#0d0f0d] text-[#E8EAE8]">
         <ThemeProvider>
           <LanguageProvider>
-            <div className="w-full flex justify-center min-h-screen">
-              {children}
-            </div>
-            <ScreenNavigator />
+            <UserProvider>
+              <div className="w-full flex justify-center min-h-screen">
+                {children}
+              </div>
+              <ScreenNavigator />
+            </UserProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
