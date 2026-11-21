@@ -9,18 +9,47 @@ import { useTranslation } from "@/context/LanguageContext";
 import { useUser } from "@/context/UserContext";
 
 export default function CreateAccountPage() {
-  const { t } = useTranslation();
-  const { user, setUserProfile } = useUser();
+  const { t, language } = useTranslation();
+  const { refreshUser } = useUser();
   const router = useRouter();
-  const [name, setName] = useState(user.name || "Murugan");
-  const [phone, setPhone] = useState(user.phone || "98765 43210");
-  const [password, setPassword] = useState("••••••••");
-  const [district, setDistrict] = useState(user.district || "");
+  const [name, setName] = useState("Murugan");
+  const [phone, setPhone] = useState("98765 43210");
+  const [password, setPassword] = useState("");
+  const [district, setDistrict] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setUserProfile({ name, phone, district });
-    router.push("/home");
+    setError(null);
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          password,
+          district,
+          language,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Failed to create account");
+        setLoading(false);
+        return;
+      }
+
+      await refreshUser();
+      router.push("/home");
+    } catch (err: any) {
+      setError(err.message || "Network error. Please try again.");
+      setLoading(false);
+    }
   };
 
   return (
@@ -40,6 +69,12 @@ export default function CreateAccountPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+          {error && (
+            <div className="p-2.5 rounded-lg bg-red-100 dark:bg-red-950/40 border border-red-300 dark:border-red-900 text-red-700 dark:text-red-400 text-xs font-semibold">
+              {error}
+            </div>
+          )}
+
           <div className="flex flex-col gap-1.5">
             <label className="lb">{t("create_account.name")}</label>
             <input
@@ -71,6 +106,7 @@ export default function CreateAccountPage() {
               className="i"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Create a password"
               required
             />
           </div>
@@ -87,8 +123,12 @@ export default function CreateAccountPage() {
           </div>
 
           <div className="pt-4">
-            <button type="submit" className="b w-full flex items-center justify-center font-bold">
-              {t("create_account.btn_create")}
+            <button
+              type="submit"
+              disabled={loading}
+              className="b w-full flex items-center justify-center font-bold disabled:opacity-60"
+            >
+              {loading ? "Creating account..." : t("create_account.btn_create")}
             </button>
           </div>
         </form>
