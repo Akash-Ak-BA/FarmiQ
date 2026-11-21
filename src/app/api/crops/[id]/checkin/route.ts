@@ -9,18 +9,43 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
-    const cropId = BigInt(params.id);
+    let cropId: bigint;
+    try {
+      cropId = BigInt(params.id);
+    } catch {
+      return NextResponse.json({ error: "Invalid crop ID" }, { status: 400 });
+    }
+
+    const user = await getCurrentUser();
+
+    // Verify crop exists and check ownership if logged in
+    const crop = await db.crop.findUnique({
+      where: { id: cropId },
+      include: { plot: { include: { farm: true } } },
+    });
+
+    if (!crop) {
+      return NextResponse.json({ error: "Crop not found" }, { status: 404 });
+    }
+
+    if (user && crop.plot.farm.userId.toString() !== user.id) {
+      return NextResponse.json({ error: "Access denied" }, { status: 403 });
+    }
+
     const body = await req.json();
     const { checkedOn, growthStage, health, notes, photoUrl } = body;
+
+    const validHealths = ["good", "average", "poor"] as const;
+    const sanitizedHealth = validHealths.includes(health) ? health : "good";
 
     const checkin = await db.cropCheckin.create({
       data: {
         cropId,
         checkedOn: checkedOn ? new Date(checkedOn) : new Date(),
-        growthStage: growthStage || null,
-        health: (health as "good" | "average" | "poor") || "good",
-        notes: notes || null,
-        photoUrl: photoUrl || null,
+        growthStage: growthStage ? String(growthStage).slice(0, 50) : null,
+        health: sanitizedHealth,
+        notes: notes ? String(notes).slice(0, 2000) : null,
+        photoUrl: photoUrl ? String(photoUrl).slice(0, 500) : null,
       },
     });
 

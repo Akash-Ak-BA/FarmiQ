@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Header } from "@/components/common/Header";
 import { BottomNav } from "@/components/common/BottomNav";
+import { AgriculturalDisclaimer } from "@/components/common/AgriculturalDisclaimer";
 import { useTranslation } from "@/context/LanguageContext";
 
 interface ChatMessageItem {
@@ -247,6 +248,8 @@ export default function AskFarmiQPage() {
               </div>
             );
           })}
+          {/* Statutory ICAR & Advisory Notice */}
+          <AgriculturalDisclaimer type="general" className="mt-1" />
         </div>
 
         {/* Quick Chips & Input Area */}

@@ -10,7 +10,14 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const cropId = BigInt(params.id);
+    let cropId: bigint;
+    try {
+      cropId = BigInt(params.id);
+    } catch {
+      return NextResponse.json({ error: "Invalid crop ID" }, { status: 400 });
+    }
+
+    const user = await getCurrentUser();
 
     const crop = await db.crop.findUnique({
       where: { id: cropId },
@@ -34,6 +41,11 @@ export async function GET(
       return NextResponse.json({ error: "Crop not found" }, { status: 404 });
     }
 
+    // Row-level privacy enforcement: if user is logged in, verify ownership
+    if (user && crop.plot.farm.userId.toString() !== user.id) {
+      return NextResponse.json({ error: "Access denied" }, { status: 403 });
+    }
+
     return NextResponse.json({ crop: serializeCrop(crop) });
   } catch (error: any) {
     console.error("GET /api/crops/[id] error:", error);
@@ -46,7 +58,29 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    const cropId = BigInt(params.id);
+    let cropId: bigint;
+    try {
+      cropId = BigInt(params.id);
+    } catch {
+      return NextResponse.json({ error: "Invalid crop ID" }, { status: 400 });
+    }
+
+    const user = await getCurrentUser();
+
+    // Verify existing crop and ownership
+    const existing = await db.crop.findUnique({
+      where: { id: cropId },
+      include: { plot: { include: { farm: true } } },
+    });
+
+    if (!existing) {
+      return NextResponse.json({ error: "Crop not found" }, { status: 404 });
+    }
+
+    if (user && existing.plot.farm.userId.toString() !== user.id) {
+      return NextResponse.json({ error: "Access denied" }, { status: 403 });
+    }
+
     const body = await req.json();
     const { stageIndex, currentStage, status } = body;
 
@@ -54,7 +88,7 @@ export async function PATCH(
       where: { id: cropId },
       data: {
         ...(stageIndex !== undefined ? { stageIndex: Number(stageIndex) } : {}),
-        ...(currentStage ? { currentStage } : {}),
+        ...(currentStage ? { currentStage: String(currentStage) } : {}),
         ...(status ? { status } : {}),
       },
       include: {

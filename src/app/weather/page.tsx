@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "@/components/common/Header";
 import { DropIcon, SunIcon, CloudRainIcon } from "@/components/common/Icons";
+import { AgriculturalDisclaimer } from "@/components/common/AgriculturalDisclaimer";
 import { sampleWeather } from "@/data/mockData";
 import { useTranslation } from "@/context/LanguageContext";
 import { useUser } from "@/context/UserContext";
@@ -175,6 +176,9 @@ export default function WeatherPage() {
               <p className="m text-[13px]">Rain chance: {item.rain}</p>
             </div>
           ))}
+
+          {/* Meteorological & IMD Advisory */}
+          <AgriculturalDisclaimer type="weather" />
         </div>
       </main>
     </div>

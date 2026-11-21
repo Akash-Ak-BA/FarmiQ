@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { Header } from "@/components/common/Header";
 import { CameraIcon } from "@/components/common/Icons";
+import { AgriculturalDisclaimer } from "@/components/common/AgriculturalDisclaimer";
 import { useTranslation } from "@/context/LanguageContext";
 
 interface AnalysisResult {
@@ -251,6 +252,9 @@ export default function CropScanResultPage() {
                 {analysisResult.safetyNote}
               </p>
             </div>
+
+            {/* CIBRC & Government Statutory Advisory */}
+            <AgriculturalDisclaimer type="chemical" />
 
             {/* Action Buttons */}
             <div className="flex flex-col gap-2 pt-2">

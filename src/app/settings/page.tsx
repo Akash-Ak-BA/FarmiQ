@@ -6,6 +6,8 @@ import Image from "next/image";
 import { Header } from "@/components/common/Header";
 import { BottomNav } from "@/components/common/BottomNav";
 import { CameraIcon } from "@/components/common/Icons";
+import { PrivacyPolicyModal } from "@/components/common/PrivacyPolicyModal";
+import { AgriculturalDisclaimer } from "@/components/common/AgriculturalDisclaimer";
 import { useTranslation, Language } from "@/context/LanguageContext";
 import { useTheme, Theme } from "@/context/ThemeContext";
 import { useUser } from "@/context/UserContext";
@@ -17,6 +19,7 @@ export default function SettingsPage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   const handleLanguageChange = async (newLang: Language) => {
     setLanguage(newLang);
@@ -63,7 +66,7 @@ export default function SettingsPage() {
 
   return (
     <div className="s">
-      <Header title="Settings" showBack />
+      <Header title="Settings & Profile" showBack />
 
       <main className="bd overflow-y-auto">
         {/* Hidden Camera / File Picker */}
@@ -84,7 +87,7 @@ export default function SettingsPage() {
                 Farmer Profile
               </span>
               <h3 className="font-bold text-[18px] text-[#212121] dark:text-[#E8EAE8] mt-1">
-                {user.name || "Murugan"}
+                {user.name || "Rama"}
               </h3>
               <p className="m text-[14px]">
                 {user.phone ? `Phone: ${user.phone}` : "Signed in"}
@@ -167,8 +170,61 @@ export default function SettingsPage() {
           </div>
         </div>
 
+        {/* Privacy Policy & Data Sovereignty Section */}
+        <div className="c py-3 px-3.5">
+          <span className="text-xs font-semibold uppercase text-[#5F6368] dark:text-[#A3A8A3] tracking-wide mb-1">
+            Privacy & Legal Protection
+          </span>
+          <p className="text-[13px] text-[#5F6368] dark:text-[#A3A8A3] leading-relaxed mb-3">
+            Your farm data is protected under the Digital Personal Data Protection (DPDP) Act, 2023. You own 100% of your farm records.
+          </p>
+          <button
+            type="button"
+            onClick={() => setIsPrivacyOpen(true)}
+            className="b o w-full flex items-center justify-center font-bold text-sm py-2"
+          >
+            📜 View Farmer Privacy Policy & Rights
+          </button>
+        </div>
+
+        {/* Statutory Agricultural Advisory Disclaimer */}
+        <AgriculturalDisclaimer type="general" />
+
+        {/* App Version & Production Details */}
+        <div className="c py-3 px-3.5 bg-gray-50 dark:bg-[#141514]">
+          <span className="text-xs font-semibold uppercase text-[#5F6368] dark:text-[#A3A8A3] tracking-wide mb-2">
+            App Information & Standards
+          </span>
+          <div className="flex flex-col gap-1.5 text-xs text-[#5F6368] dark:text-[#A3A8A3]">
+            <div className="flex justify-between">
+              <span>App Version:</span>
+              <strong className="text-[#212121] dark:text-[#E8EAE8]">FarmiQ v1.0.0</strong>
+            </div>
+            <div className="flex justify-between">
+              <span>Build Number:</span>
+              <span className="font-mono text-[#212121] dark:text-[#E8EAE8]">2026.11-PROD</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Architecture:</span>
+              <span>Next.js 14 PWA (Offline Ready)</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Database Engine:</span>
+              <span>MySQL 8.4 / TiDB Cloud (Row-Isolated)</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Regulatory Compliance:</span>
+              <span className="text-emerald-700 dark:text-emerald-400 font-semibold">DPDP Act 2023 & ICAR / CIBRC</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Languages:</span>
+              <span>English, தமிழ் (Tamil), తెలుగు (Telugu)</span>
+            </div>
+          </div>
+        </div>
+
         {/* Logout Button */}
-        <div className="mt-auto pt-4 pb-2">
+        <div className="mt-auto pt-3 pb-2">
           <button
             type="button"
             disabled={loggingOut}
@@ -179,6 +235,12 @@ export default function SettingsPage() {
           </button>
         </div>
       </main>
+
+      {/* Privacy Policy Modal */}
+      <PrivacyPolicyModal
+        isOpen={isPrivacyOpen}
+        onClose={() => setIsPrivacyOpen(false)}
+      />
 
       <BottomNav />
     </div>

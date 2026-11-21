@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Header } from "@/components/common/Header";
 import { BottomNav } from "@/components/common/BottomNav";
+import { AgriculturalDisclaimer } from "@/components/common/AgriculturalDisclaimer";
 import { useTranslation } from "@/context/LanguageContext";
 
 interface ListingItem {
@@ -122,6 +123,9 @@ export default function MarketplacePage() {
               </div>
             </div>
           ))}
+
+          {/* Direct Marketplace Guidelines & Fair Trade Notice */}
+          <AgriculturalDisclaimer type="market" />
         </div>
 
         {/* Sell Your Product Button */}
