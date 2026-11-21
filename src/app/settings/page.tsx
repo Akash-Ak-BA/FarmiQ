@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Header } from "@/components/common/Header";
 import { BottomNav } from "@/components/common/BottomNav";
+import { CameraIcon } from "@/components/common/Icons";
 import { useTranslation, Language } from "@/context/LanguageContext";
 import { useTheme, Theme } from "@/context/ThemeContext";
 import { useUser } from "@/context/UserContext";
@@ -11,8 +13,9 @@ import { useUser } from "@/context/UserContext";
 export default function SettingsPage() {
   const { t, language, setLanguage } = useTranslation();
   const { theme, setTheme } = useTheme();
-  const { user, setUserProfile } = useUser();
+  const { user, setUserProfile, setUserAvatar } = useUser();
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [loggingOut, setLoggingOut] = useState(false);
 
   const handleLanguageChange = async (newLang: Language) => {
@@ -37,12 +40,24 @@ export default function SettingsPage() {
     } catch {}
   };
 
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result as string;
+        setUserAvatar(base64);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleLogout = async () => {
     setLoggingOut(true);
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } catch {}
-    setUserProfile({ name: "Guest", phone: "" });
+    setUserProfile({ name: "Guest", phone: "", avatar: "" });
     router.push("/signin");
   };
 
@@ -51,20 +66,54 @@ export default function SettingsPage() {
       <Header title="Settings" showBack />
 
       <main className="bd overflow-y-auto">
-        {/* User Profile Card */}
+        {/* Hidden Camera / File Picker */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          capture="user"
+          onChange={handlePhotoUpload}
+          className="hidden"
+        />
+
+        {/* User Profile Card with Photo on Right */}
         <div className="c py-3 px-3.5">
-          <span className="text-xs font-semibold uppercase text-[#5F6368] dark:text-[#A3A8A3] tracking-wide">
-            Farmer Profile
-          </span>
-          <h3 className="font-bold text-[18px] text-[#212121] dark:text-[#E8EAE8] mt-1">
-            {user.name || "Murugan"}
-          </h3>
-          <p className="m text-[14px]">
-            {user.phone ? `Phone: ${user.phone}` : "Signed in"}
-          </p>
-          {user.district && (
-            <p className="m text-[14px]">District: {user.district}</p>
-          )}
+          <div className="r sb items-center">
+            <div className="flex-1">
+              <span className="text-xs font-semibold uppercase text-[#5F6368] dark:text-[#A3A8A3] tracking-wide">
+                Farmer Profile
+              </span>
+              <h3 className="font-bold text-[18px] text-[#212121] dark:text-[#E8EAE8] mt-1">
+                {user.name || "Murugan"}
+              </h3>
+              <p className="m text-[14px]">
+                {user.phone ? `Phone: ${user.phone}` : "Signed in"}
+              </p>
+              {user.district && (
+                <p className="m text-[14px]">District: {user.district}</p>
+              )}
+            </div>
+
+            {/* Profile Avatar on Right */}
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#2E7D32] bg-[#E8EBE8] dark:bg-[#2A2F2A] flex items-center justify-center cursor-pointer shadow-sm flex-shrink-0"
+              title="Tap to change photo"
+            >
+              {user.avatar ? (
+                <img
+                  src={user.avatar}
+                  alt={user.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="flex flex-col items-center justify-center text-[#2E7D32] dark:text-[#81C784]">
+                  <CameraIcon className="w-6 h-6" />
+                  <span className="text-[9px] font-bold mt-0.5">Add</span>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Language Selection */}

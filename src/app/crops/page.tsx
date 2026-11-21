@@ -50,13 +50,12 @@ export default function MyCropsPage() {
         </div>
 
         <div className="mt-auto pt-4 pb-2">
-          <button
-            type="button"
-            className="b w-full flex items-center justify-center font-bold"
-            onClick={() => alert("Add Crop will open form in next step")}
+          <Link
+            href="/crops/add"
+            className="b w-full flex items-center justify-center font-bold no-underline text-center"
           >
             {t("crops.add_crop")}
-          </button>
+          </Link>
         </div>
       </main>
 
