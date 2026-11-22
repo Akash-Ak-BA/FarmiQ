@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { UserProvider } from "@/context/UserContext";
+import { NotificationProvider } from "@/context/NotificationContext";
 import { ScreenNavigator } from "@/components/common/ScreenNavigator";
 
 export const metadata: Metadata = {
@@ -42,10 +43,12 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             <UserProvider>
-              <div className="w-full flex justify-center min-h-screen">
-                {children}
-              </div>
-              <ScreenNavigator />
+              <NotificationProvider>
+                <div className="w-full flex justify-center min-h-screen">
+                  {children}
+                </div>
+                <ScreenNavigator />
+              </NotificationProvider>
             </UserProvider>
           </LanguageProvider>
         </ThemeProvider>

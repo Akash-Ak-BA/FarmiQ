@@ -46,8 +46,8 @@ export default function HomePage() {
 
   return (
     <div className="s">
-      {/* Header with Plant logo, FarmiQ Wordmark, Bell with unread count 3 */}
-      <Header showBell unreadCount={3} />
+      {/* Header with Plant logo, FarmiQ Wordmark, Bell with live unread badge */}
+      <Header showBell />
 
       <main className="bd overflow-y-auto">
         {/* User Greeting and Profile Photo on Right */}

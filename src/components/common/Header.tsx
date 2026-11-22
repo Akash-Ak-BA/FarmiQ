@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { BackIcon, BellIcon, PlantIcon } from "./Icons";
+import { useNotifications } from "@/context/NotificationContext";
 
 interface HeaderProps {
   title?: string;
@@ -21,11 +22,13 @@ export function Header({
   showBack,
   onBack,
   showBell = false,
-  unreadCount = 0,
+  unreadCount,
   isBig = false,
   rightAction,
 }: HeaderProps) {
   const router = useRouter();
+  const { unreadCount: liveUnreadCount } = useNotifications();
+  const effectiveUnreadCount = unreadCount !== undefined ? unreadCount : liveUnreadCount;
 
   if (isBig) {
     return (
@@ -92,7 +95,7 @@ export function Header({
         ) : showBell ? (
           <Link href="/notifications" className="ib" aria-label="Notifications">
             <BellIcon />
-            {unreadCount > 0 && <span className="dot">{unreadCount}</span>}
+            {effectiveUnreadCount > 0 && <span className="dot">{effectiveUnreadCount}</span>}
           </Link>
         ) : (
           <div className="w-[52px]" />

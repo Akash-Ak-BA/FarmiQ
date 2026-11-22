@@ -6,6 +6,7 @@ import { Header } from "@/components/common/Header";
 import { BottomNav } from "@/components/common/BottomNav";
 import { TaskConfirmSheet } from "@/components/common/TaskConfirmSheet";
 import { useTranslation } from "@/context/LanguageContext";
+import { useNotifications } from "@/context/NotificationContext";
 import { SerializedCrop } from "@/lib/crop-service";
 
 interface TaskItem {
@@ -21,6 +22,7 @@ interface TaskItem {
 
 function CropDetailContent() {
   const { t } = useTranslation();
+  const { refreshNotifications } = useNotifications();
   const searchParams = useSearchParams();
   const selectedCropId = searchParams.get("id");
 
@@ -77,42 +79,51 @@ function CropDetailContent() {
     setIsConfirmOpen(true);
   };
 
-  const handleConfirmTask = () => {
+  const handleConfirmTask = async () => {
     if (!selectedTask) return;
+    const taskToComplete = selectedTask;
 
-    // 1. Mark task done in local state
+    // 1. Mark task done in local state (optimistic)
     setCrops((prev) =>
       prev.map((c) => ({
         ...c,
         tasks: c.tasks.map((t) =>
-          t.id === selectedTask.id ? { ...t, status: "done" } : t
+          t.id === taskToComplete.id ? { ...t, status: "done" } : t
         ),
       }))
     );
 
-    // 2. Automatically log to Daily Log in localStorage & activities
+    // 2. Call backend transaction API
+    try {
+      await fetch(`/api/tasks/${taskToComplete.id}/complete`, { method: "POST" });
+      refreshNotifications();
+    } catch (err) {
+      console.error("Failed to complete task in database:", err);
+    }
+
+    // 3. Automatically log to Daily Log in localStorage & activities
     try {
       const existingLogsStr = localStorage.getItem("farmiq_daily_logs");
       const existingLogs = existingLogsStr ? JSON.parse(existingLogsStr) : [];
       const newLog = {
         id: Date.now(),
-        crop: `${selectedTask.cropName} (${selectedTask.plotName})`,
-        type: selectedTask.title.toLowerCase().includes("fertilizer")
+        crop: `${taskToComplete.cropName} (${taskToComplete.plotName})`,
+        type: taskToComplete.title.toLowerCase().includes("fertilizer")
           ? "Fertilizer"
-          : selectedTask.title.toLowerCase().includes("weeding")
+          : taskToComplete.title.toLowerCase().includes("weeding")
           ? "Weeding"
-          : selectedTask.title.toLowerCase().includes("spray")
+          : taskToComplete.title.toLowerCase().includes("spray")
           ? "Pesticide"
           : "Task",
         time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        notes: `Completed task: ${selectedTask.title}`,
+        notes: `Completed task: ${taskToComplete.title}`,
         cost: 0,
       };
       localStorage.setItem("farmiq_daily_logs", JSON.stringify([newLog, ...existingLogs]));
     } catch {}
 
-    // 3. Show confirmation toast
-    setToastMessage(`✓ "${selectedTask.title}" completed & added to Daily Log!`);
+    // 4. Show confirmation toast
+    setToastMessage(`✓ "${taskToComplete.title}" completed & logged in database!`);
     setTimeout(() => setToastMessage(null), 3500);
 
     setIsConfirmOpen(false);
